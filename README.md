@@ -15,7 +15,7 @@ This script will extract oligo sequences (15-40 nucleotides) from pdf documents.
 
 extract_sequences_from_pdf_moduleversion.py : use this version if you prefer to use it in a jupyter notebook. Copy and paste the code into a notebook cell, edit path and parameters where required.
 
-
+Limitiations: The script is able to more effective pull out the sequences from tables than from main text bodies.
 
 ### Dependencies
 Python (>3.11) is the coding language used. Dependencies include:
