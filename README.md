@@ -15,6 +15,8 @@ This script will extract oligo sequences (15-40 nucleotides) from pdf documents.
 
 extract_sequences_from_pdf_moduleversion.py : use this version if you prefer to use it in a jupyter notebook. Copy and paste the code into a notebook cell, edit path and parameters where required.
 
+
+
 ### Dependencies
 Python (>3.11) is the coding language used. Dependencies include:
 - pandas
@@ -29,12 +31,15 @@ Download your pdf into a working folder. Use the script to extract primer and pr
 
 Run: python extract_sequences_from_pdf.py [folder containing pdf documents]
 
+\
+\
+\
 
 #### Plans
-
+<sup>
 This will take some time as I'm still very new at this.
 
 - simple RAG for extraction of sequences
 - updated and improved scripts from Chopshop archive (extraction of reference numbers)
 - simple RAG for extraction of methods
-  
+</sup>
