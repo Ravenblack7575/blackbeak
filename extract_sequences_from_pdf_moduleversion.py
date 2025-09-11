@@ -51,20 +51,25 @@ def extract_sequences_from_pdf(pdf_path):
     for name, dye, seq, quencher in matches4a:
         sequences.append({"name": name, "sequence": seq.upper(), "source": pdf_path.name, "dye": dye, "quencher": quencher})
     
-    # Pattern 4b: Unnamed probes "FAM-ATCGATCG-BHQ1" (fallback)
-    matches4b = re.findall(r'([A-Za-z0-9]+)-([ATCGUNRYKMSWBDHVI]{15,40})-([A-Za-z0-9]+)', text, re.IGNORECASE)
-    for dye, seq, quencher in matches4b:
-        sequences.append({"name": f"{dye}_{quencher}_probe", "sequence": seq.upper(), "source": pdf_path.name})
+    # # Pattern 4b: Unnamed probes "FAM-ATCGATCG-BHQ1" (fallback)
+    # matches4b = re.findall(r'([A-Za-z0-9]+)-([ATCGUNRYKMSWBDHVI]{15,40})-([A-Za-z0-9]+)', text, re.IGNORECASE)
+    # for dye, seq, quencher in matches4b:
+    #     sequences.append({"name": f"{dye}_{quencher}_probe", "sequence": seq.upper(), "source": pdf_path.name})
     
     # Pattern 5a: Named probes "ProbeName: [FAM]ATCGATCG[BHQ1]"
     matches5a = re.findall(r'([A-Za-z0-9_-]+)[\s:]+\[([A-Za-z0-9-]+)\]([ATCGUNRYKMSWBDHVI]{15,40})\[([A-Za-z0-9-]+)\]', text, re.IGNORECASE)
     for name, dye, seq, quencher in matches5a:
         sequences.append({"name": name, "sequence": seq.upper(), "source": pdf_path.name, "dye": dye, "quencher": quencher})
     
-    # Pattern 5b: Unnamed probes "[FAM]ATCGATCG[BHQ1]" (fallback)
-    matches5b = re.findall(r'\[([A-Za-z0-9-]+)\]([ATCGUNRYKMSWBDHVI]{15,40})\[([A-Za-z0-9-]+)\]', text, re.IGNORECASE)
-    for dye, seq, quencher in matches5b:
-        sequences.append({"name": f"{dye}_{quencher}_probe", "sequence": seq.upper(), "source": pdf_path.name})
+    # # Pattern 5b: Unnamed probes "[FAM]ATCGATCG[BHQ1]" (fallback)
+    # matches5b = re.findall(r'\[([A-Za-z0-9-]+)\]([ATCGUNRYKMSWBDHVI]{15,40})\[([A-Za-z0-9-]+)\]', text, re.IGNORECASE)
+    # for dye, seq, quencher in matches5b:
+    #     sequences.append({"name": f"{dye}_{quencher}_probe", "sequence": seq.upper(), "source": pdf_path.name})
+
+    # Pattern 5c: Named probes "ProbeName: (FAM) ATCGATCG (BHQ1)"
+    matches5c = re.findall(r'([A-Za-z0-9_-]+)[\s:]+\(([A-Za-z0-9-]+)\)\s*([ATCGUNRYKMSWBDHVI]{15,40})\s*\(([A-Za-z0-9-]+)\)', text, re.IGNORECASE)
+    for name, dye, seq, quencher in matches5c:
+        sequences.append({"name": name, "sequence": seq.upper(), "source": pdf_path.name, "dye": dye, "quencher": quencher})  
     
     return sequences
 
