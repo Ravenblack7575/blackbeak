@@ -28,4 +28,13 @@ Python (>3.11) is the coding language used. Dependencies include:
 Download your pdf into a working folder. Use the script to extract primer and probe sequences from all the documents in the folder.
 
 Run: python extract_sequences_from_pdf.py [folder containing pdf documents]
+
+
+#### Plans
+
+This will take some time as I'm still very new at this.
+
+- simple RAG for extraction of sequences
+- updated and improved scripts from Chopshop archive (extraction of reference numbers)
+- simple RAG for extraction of methods
   
