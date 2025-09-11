@@ -20,7 +20,6 @@ def extract_sequences_from_pdf(pdf_path):
 
     """
 
-
     with open(pdf_path, 'rb') as file:
         pdf_reader = PyPDF2.PdfReader(file)
         text = ""
@@ -28,51 +27,48 @@ def extract_sequences_from_pdf(pdf_path):
             text += page.extract_text()
     
     sequences = []
-    
+
+        
     # Pattern 1: "Name: ATCGATCG" or "Name ATCGATCG"
     matches1 = re.findall(r'([A-Za-z0-9_-]+)[\s:]+([ATCGUNRYKMSWBDHVI]{15,40})', text, re.IGNORECASE)
-    for name, seq in matches1:
-        sequences.append({"name": name, "sequence": seq.upper(), "source": pdf_path.name})
-
+    
     # Pattenr 1b: "Name: 5'-ATCGATCG-3'"
     matches1b = re.findall(r'([A-Za-z0-9_-]+)[\s:]+5\'-([ATCGUNRYKMSWBDHVI]{15,40})-3\'', text, re.IGNORECASE)
-    for name, seq in matches1b:
-        sequences.append({"name": name, "sequence": seq.upper(), "source": pdf_path.name})
-    
+        
     # Pattern 2: "Forward primer: ATCGATCG"
     matches2 = re.findall(r'(Forward|Reverse)\s+primer[\s:]+([ATCGUNRYKMSWBDHVI]{15,40})', text, re.IGNORECASE)
-    for name, seq in matches2:
-        sequences.append({"name": f"{name}_primer", "sequence": seq.upper(), "source": pdf_path.name})
-    
+        
     # Pattern 3: Table format with tabs/spaces
     matches3 = re.findall(r'([A-Za-z0-9_-]+)\s{3,}([ATCGUNRYKMSWBDHVI]{15,40})', text, re.IGNORECASE)
-    for name, seq in matches3:
-        sequences.append({"name": name, "sequence": seq.upper(), "source": pdf_path.name})
-    
+        
     # Pattern 4: Named probes "ProbeName: FAM-ATCGATCG-BHQ1"
     matches4a = re.findall(r'([A-Za-z0-9_-]+)[\s:]+([A-Za-z0-9]+)-([ATCGUNRYKMSWBDHVI]{15,40})-([A-Za-z0-9]+)', text, re.IGNORECASE)
-    for name, dye, seq, quencher in matches4a:
-        sequences.append({"name": name, "sequence": seq.upper(), "source": pdf_path.name, "dye": dye, "quencher": quencher})
-    
+        
     # # Pattern 4b: Unnamed probes "FAM-ATCGATCG-BHQ1" (fallback)
     # matches4b = re.findall(r'([A-Za-z0-9]+)-([ATCGUNRYKMSWBDHVI]{15,40})-([A-Za-z0-9]+)', text, re.IGNORECASE)
-    # for dye, seq, quencher in matches4b:
-    #     sequences.append({"name": f"{dye}_{quencher}_probe", "sequence": seq.upper(), "source": pdf_path.name})
-    
+        
     # Pattern 5a: Named probes "ProbeName: [FAM]ATCGATCG[BHQ1]"
     matches5a = re.findall(r'([A-Za-z0-9_-]+)[\s:]+\[([A-Za-z0-9-]+)\]([ATCGUNRYKMSWBDHVI]{15,40})\[([A-Za-z0-9-]+)\]', text, re.IGNORECASE)
-    for name, dye, seq, quencher in matches5a:
-        sequences.append({"name": name, "sequence": seq.upper(), "source": pdf_path.name, "dye": dye, "quencher": quencher})
-    
+        
     # # Pattern 5b: Unnamed probes "[FAM]ATCGATCG[BHQ1]" (fallback)
     # matches5b = re.findall(r'\[([A-Za-z0-9-]+)\]([ATCGUNRYKMSWBDHVI]{15,40})\[([A-Za-z0-9-]+)\]', text, re.IGNORECASE)
-    # for dye, seq, quencher in matches5b:
-    #     sequences.append({"name": f"{dye}_{quencher}_probe", "sequence": seq.upper(), "source": pdf_path.name})
-
+    
     # Pattern 5c: Named probes "ProbeName: (FAM) ATCGATCG (BHQ1)"
     matches5c = re.findall(r'([A-Za-z0-9_-]+)[\s:]+\(([A-Za-z0-9-]+)\)\s*([ATCGUNRYKMSWBDHVI]{15,40})\s*\(([A-Za-z0-9-]+)\)', text, re.IGNORECASE)
-    for name, dye, seq, quencher in matches5c:
-        sequences.append({"name": name, "sequence": seq.upper(), "source": pdf_path.name, "dye": dye, "quencher": quencher})  
+     
+    # pattern lists - update if more patterns are added or removed
+
+    primer_patterns =[matches1, matches1b, matches2, matches3]
+
+    probe_patterns = [matches4a, matches5a, matches5c]
+
+    for primer in primer_patterns:
+        for name, seq in primer:
+            sequences.append({"name": name, "sequence": seq.upper(), "source": pdf_path.name})
+
+    for probe in probe_patterns:
+        for name, dye, seq, quencher in probe:
+            sequences.append({"name": name, "sequence": seq.upper(), "source": pdf_path.name, "dye": dye, "quencher": quencher})
     
     return sequences
 
