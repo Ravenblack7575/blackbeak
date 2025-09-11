@@ -31,13 +31,12 @@ Download your pdf into a working folder. Use the script to extract primer and pr
 
 Run: <code> python extract_sequences_from_pdf.py [folder containing pdf documents] </code>
 
-\
+<BR>
+<BR>
+<BR>
+<BR>
+<BR>
 
-\
-
-\
-
-\
 
 #### Plans
 
