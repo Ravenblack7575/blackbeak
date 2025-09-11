@@ -1,4 +1,4 @@
-# [blackbeak]
+# **blackbeak**
 Sequence data extraction from pdf documents
 
 A collection of python scripts and notebooks for extraction of sequence data from pdf documents. 
@@ -7,7 +7,7 @@ A collection of python scripts and notebooks for extraction of sequence data fro
 Researchers are often searching and curating journal papers for sequence data for assay development, genomic analysis and other study objectives. When such data are found, a lot of time and effort is taken to extract them manually (copy-paste) which are prone to error and mislabelling. It would be useful to have a collection of scripts or script templates that would enable researchers to easily pull out the information and data into neat csv tables. The downstream uses for such data include applying them to machine learning workflows, and agentic AI workflows.
 
 
-## [Python Scripts]
+## **Python Scripts**
 
 ## 1. extract_sequences_from_pdf.py
 
