@@ -4,7 +4,7 @@ Sequence data extraction from pdf documents
 A collection of python scripts and notebooks for extraction of sequence data from pdf documents. 
 
 ### Impetus
-Researchers are often searching and curating sequence data from journal papers for assay development, genomic analysis and other study objectives. It takes a lot of time and careful effort to extract them manually (copy-paste) which are prone to error and mislabelling. It would be useful to have a collection of scripts or script templates that would enable researchers to easily pull out the information and data into neat csv tables. The downstream uses for such data include applying them to machine learning workflows, and agentic AI workflows.
+Researchers are often searching and curating sequence data from journal papers for assay development, genomic analysis and other study objectives. It takes a lot of time and careful effort to extract them manually (copy-paste) which are prone to error and mislabelling. It would be useful to have a collection of scripts or script templates that would enable researchers to easily pull out the information and data into neat csv tables. The downstream uses for such data include machine learning workflows, and generative AI workflows.
 
 
 ## **Python Scripts**
