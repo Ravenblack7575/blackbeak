@@ -70,6 +70,21 @@ def extract_sequences_from_pdf(pdf_path):
     matches5c = re.findall(r'([A-Za-z0-9_-]+)[\s:]+\(([A-Za-z0-9-]+)\)\s*([ATCGUNRYKMSWBDHVI]{15,40})\s*\(([A-Za-z0-9-]+)\)', text, re.IGNORECASE)
     for name, dye, seq, quencher in matches5c:
         sequences.append({"name": name, "sequence": seq.upper(), "source": pdf_path.name, "dye": dye, "quencher": quencher})  
+
+    # Pattern 6: Spaced sequences with 5'/3' indicators "5'-AGA TGA GTC TTC TAA CCG AGG TCG-3'" or without quotes
+    matches6 = re.findall(r'([A-Za-z0-9_-]+)[\s:]+(?:5\'?-?)?([ATCGUNRYK]{3}(?:\s+[ATCGUNRYK]{3}){2,})(?:-?3\'?)?', text, re.IGNORECASE)
+    for name, seq in matches6:
+        sequences.append({"name": f"{name}_primer", "sequence": seq.upper(), "source": pdf_path.name})
+
+    # Pattern 7: Spaced probes with tags "FAM-5'-AGA TGA GTC TTC TAA-3'-BHQ1"
+    matches7a = re.findall(r'([A-Za-z0-9_-]+)[\s:]+([A-Za-z0-9]+)-?(?:5\'?-?)?([ATCGUNRYK]{3}(?:\s+[ATCGUNRYK]{3}){2,})(?:-?3\'?)?-?([A-Za-z0-9]+)', text, re.IGNORECASE)
+    for name, dye, seq, quencher in matches7a:
+        sequences.append({"name": name, "sequence": seq.upper(), "source": pdf_path.name, "dye": dye, "quencher": quencher}) 
+
+    # # Pattern 7b: Unnamed spaced probes "FAM-5'-AGA TGA GTC TTC TAA-3'-BHQ1"
+    # matches7b = re.findall(r'([A-Za-z0-9]+)-?(?:5\'?-?)?([ATCGUNRYKM]{3}(?:\s+[ATCGUNRYKM]{3}){2,})(?:-?3\'?)?-?([A-Za-z0-9]+)', text, re.IGNORECASE)
+    # for name, dye, seq, quencher in matches7b:
+    #     sequences.append({"name": name, "sequence": seq.upper(), "source": pdf_path.name, "dye": dye, "quencher": quencher}) 
     
     return sequences
 
