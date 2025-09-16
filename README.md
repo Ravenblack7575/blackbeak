@@ -25,6 +25,12 @@ Python (>3.11) is the coding language used. Dependencies include:
 - json
 - pathlib
 
+### The patterns it captures
+
+It should capture most oligo patterns, although it is likely to miss those sequences that lie in paragraphs or those broken due to line or page breaks. 
+
+The other pattern it might miss are those sequences that are broken into groups of three bases. (e.g. AAA TCG GGG CCA...)
+
 ### Usage
 
 Download your pdf into a working folder. Use the script to extract primer and probe sequences from all the documents in the folder.
