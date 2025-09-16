@@ -1,5 +1,5 @@
 # **blackbeak**
-Sequence data extraction from pdf documents
+Information and sequence data extraction from pdf documents
 
 A collection of python scripts and notebooks for extraction of sequence data from pdf documents. 
 
