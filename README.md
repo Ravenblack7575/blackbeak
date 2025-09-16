@@ -25,11 +25,13 @@ Python (>3.11) is the coding language used. Dependencies include:
 - json
 - pathlib
 
-### The patterns it captures
+### About the patterns it captures
 
 It should capture most oligo patterns, although it is likely to miss those sequences that lie in paragraphs or those broken due to line or page breaks. 
 
-The other pattern it might miss are those sequences that are broken into groups of three bases. (e.g. AAA TCG GGG CCA...)
+The other pattern it might miss are those sequences that are broken into groups of three bases. (e.g. AAA TCG GGG CCA...) I think that most papers do not have oligos in this format unless they were manually typed. The primers can be captured nicely, but probe sequences could get messy. 
+
+Always check the sequences with the papers just to make sure. 
 
 ### Usage
 
