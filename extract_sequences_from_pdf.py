@@ -55,12 +55,22 @@ def extract_sequences_from_pdf(pdf_path):
     
     # Pattern 5c: Named probes "ProbeName: (FAM) ATCGATCG (BHQ1)"
     matches5c = re.findall(r'([A-Za-z0-9_-]+)[\s:]+\(([A-Za-z0-9-]+)\)\s*([ATCGUNRYKMSWBDHVI]{15,40})\s*\(([A-Za-z0-9-]+)\)', text, re.IGNORECASE)
+
+    # Pattern 6: Spaced sequences with 5'/3' indicators "5'-AGA TGA GTC TTC TAA CCG AGG TCG-3'" or without quotes
+    matches6 = re.findall(r'([A-Za-z0-9_-]+)[\s:]+(?:5\'?-?)?([ATCGUNRYK]{3}(?:\s+[ATCGUNRYK]{3}){2,})(?:-?3\'?)?', text, re.IGNORECASE)
+
+    # Pattern 7: Spaced probes with tags "FAM-5'-AGA TGA GTC TTC TAA-3'-BHQ1"
+    matches7a = re.findall(r'([A-Za-z0-9_-]+)[\s:]+([A-Za-z0-9]+)-?(?:5\'?-?)?([ATCGUNRYK]{3}(?:\s+[ATCGUNRYK]{3}){2,})(?:-?3\'?)?-?([A-Za-z0-9]+)', text, re.IGNORECASE)
+
+    # # Pattern 7b: Unnamed spaced probes "FAM-5'-AGA TGA GTC TTC TAA-3'-BHQ1"
+    # matches7b = re.findall(r'([A-Za-z0-9]+)-?(?:5\'?-?)?([ATCGUNRYKM]{3}(?:\s+[ATCGUNRYKM]{3}){2,})(?:-?3\'?)?-?([A-Za-z0-9]+)', text, re.IGNORECASE)
+
      
     # pattern lists - update if more patterns are added or removed
 
-    primer_patterns =[matches1, matches1b, matches2, matches3]
+    primer_patterns =[matches1, matches1b, matches2, matches3, matches6]
 
-    probe_patterns = [matches4a, matches5a, matches5c]
+    probe_patterns = [matches4a, matches5a, matches5c, matches7a]
 
     for primer in primer_patterns:
         for name, seq in primer:
